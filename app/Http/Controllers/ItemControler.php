@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TodoItems;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class ItemControler extends Controller
 {
@@ -32,10 +33,9 @@ class ItemControler extends Controller
         $todoitem=new TodoItems();
         $todoitem->name=$request->name;
         $todoitem->description=$request->description;
-        $todoitem->completed=0;
         $todoitem->complete=0;
         $todoitem->save();
-        redirect('index');
+        return redirect(route('index'));
     }
 
     /**
@@ -59,7 +59,11 @@ class ItemControler extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $todoitem=TodoItems::find($id); 
+        $todoitem->complete=$request->complete;
+        $todoitem->save();
+        
+        return redirect("/");
     }
 
     /**
@@ -67,6 +71,9 @@ class ItemControler extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $todoitem=TodoItems::find($id); 
+        $todoitem->delete();
+        return redirect('/');
+        
     }
 }

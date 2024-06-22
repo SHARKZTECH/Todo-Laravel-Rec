@@ -974,14 +974,33 @@
                                     <p class="mt-4 text-sm/relaxed">
                                         {{ $item->description }}
                                     </p>
+                                    <div>
+                                        <form method="POST" action="{{ route('update', $item->id) }}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('PUT') }}
+                                            <div class="mt-4">
+                                                <input type="checkbox" class="text-black" name="complete"
+                                                    {{ $item->complete ? 'checked' : '' }} />
+                                            </div>
+                                            <div class="mt-4">
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
 
-                                <svg class="size-6 shrink-0 self-center stroke-[#FF2D20]"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                                </svg>
+                                <form method="POST" action="{{ route('delete', $item->id) }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit">
+                                        <svg class="size-6 shrink-0 self-center stroke-[#FF2D20]"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                                        </svg>
+                                    </button>
+                                </form>
                             </div>
                         @endforeach
 
